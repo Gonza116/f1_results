@@ -15,7 +15,6 @@
               <th>Pos.</th>
               <th>Driver</th>
               <th>Constructor</th>
-              <th>Time</th>
               <th>Fastest Lap</th>
               <th>Grid</th>
               <th>Points</th>
@@ -25,7 +24,6 @@
               <td>{{result["position"]}}</td>
               <td>{{result["Driver"]["givenName"]}} <b>{{result["Driver"]["familyName"]}}</b></td>
               <td>{{result["Constructor"]["name"]}}</td>
-              <td>{{result["Time"]["time"]}}</td>
               {% if result["FastestLap"]["rank"] == "1" %}
               <td><b>{{result["FastestLap"]["Time"]["time"]}}</b></td>
               {% else %}
