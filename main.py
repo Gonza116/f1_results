@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
   r = requests.get(
-     'http://ergast.com/api/f1/2020/1/results.json')
+     'http://ergast.com/api/f1/1998/6/results.json')
   return render_template('results_test.html', results=json.loads(r.text)['MRData']['RaceTable'])
 
 @app.route('/about/')
