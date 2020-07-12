@@ -17,13 +17,13 @@ def get_all_races_year():
   race = str(request.args.get("race"))
   if(race == "None"):
     race = "1"
-  if(race == "0"):
-    return render_template('not_available.html')
   try:
     int(year)
     int(race)
   except:
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+  if(race == "0" or int(year) < 1950):
+    return render_template('not_available.html')
   r = requests.get(
     'http://ergast.com/api/f1/' + year + '/' + race + '/results.json')  
   print(r.text)
