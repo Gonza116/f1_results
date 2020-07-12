@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 import requests
 import json
 import xmltodict
@@ -19,6 +19,11 @@ def get_all_races_year():
     race = "1"
   if(race == "0"):
     return render_template('not_available.html')
+  try:
+    int(year)
+    int(race)
+  except:
+    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   r = requests.get(
     'http://ergast.com/api/f1/' + year + '/' + race + '/results.json')  
   print(r.text)
