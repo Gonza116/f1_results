@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <body>
-  {% for key, race in results.items() %}
-    <h1>{{ race[0]["raceName"] }}</h1>
+  <p><a href="/..">Back home</a></p>
+  {% if data['prev'] == "0" %}
+  <p><a href="/consult_year/?year={{data['year']}}&race={{data['next']}}">Next race</a></p>
+  {% else %}
+  <p><a href="/consult_year/?year={{data['year']}}&race={{data['prev']}}">Previous race </a><br/><a href="/consult_year/?year={{data['year']}}&race={{data['next']}}">Next race</a></p>
+  {% endif %}
+  {% for race in data['results'] %}
+    <h1>{{ race["raceName"] }}</h1>
     <h3>Data:</h3>
       <ul>
-          <li><u>Date:</u> {{ race[0]["date"] }}</li>       
-          <li><u>Circuit:</u> {{ race[0]["Circuit"]["circuitName"] }}</li>
-          <li><u>Location:</u> {{ race[0]["Circuit"]["Location"]["locality"] }} ({{ race[0]["Circuit"]["Location"]["country"] }})</li>
+          <li><u>Date:</u> {{ race["date"] }}</li>       
+          <li><u>Circuit:</u> {{ race["Circuit"]["circuitName"] }}</li>
+          <li><u>Location:</u> {{ race["Circuit"]["Location"]["locality"] }} ({{ race["Circuit"]["Location"]["country"] }})</li>
       </ul>
     <h3>Result:</h3>
       <table>
@@ -20,7 +26,7 @@
               <th>Grid</th>
               <th>Points</th>
           </tr>
-          {% for result in race[0]["Results"]%}
+          {% for result in race["Results"]%}
           <tr>
               <td>{{result["position"]}}</td>
               <td>{{result["Driver"]["givenName"]}} <b>{{result["Driver"]["familyName"]}}</b></td>
@@ -32,14 +38,14 @@
               {% else %}
                 <td>{{result["status"]}}</td>
               {% endif %}
-              {% if result["laps"] == "0" %}
-                <td>--:--.---</td>
-              {% elif race[0]["season"] | int < 2007 %}
-                <td>--:--.---</td>
-              {% elif result["FastestLap"]["rank"] == "1" %}
-                <td><b>{{result["FastestLap"]["Time"]["time"]}}</b></td>
+              {% if "FastestLap" in result %}
+                {% if result["FastestLap"]["rank"] == "1" %}
+                  <td><b>{{result["FastestLap"]["Time"]["time"]}}</b></td>
+                {% else %}
+                  <td>{{result["FastestLap"]["Time"]["time"]}}</td>
+                  {% endif %}
               {% else %}
-                <td>{{result["FastestLap"]["Time"]["time"]}}</td>
+                <td>--:--.---</td>
               {% endif %}
               <td>{{result["grid"]}}</td>
               <td>{{result["points"]}}</td>

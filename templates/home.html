@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>The F1 historian app</h1>
+<form action="/consult_year" method="GET">
+    <label for="year">What season do you want to know about?</label><br>
+    <input type="text" id="year" name="year" value="2006"><br>
+    <input type="submit" value="Submit">
+  </form>
+  <br/>
+  <p>Or if you prefer to know about a specific race</p>
+  <form action="/consult_year" method="GET">
+    <label for="year">Season</label>
+    <input type="text" id="year" name="year" value="2019"><br>
+    <label for="race">Race</label>
+    <input type="text" id="race" name="race" value="11"><br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
